@@ -7,7 +7,6 @@ function createNewCard (cardData) {
     const newCard = cardTemplate.cloneNode(true);
     const cardImage = newCard.querySelector('.card__image');
     cardImage.alt = cardData.name;
-    console.log(cardData.link);
     cardImage.src = cardData.link;
     const cardTitle = newCard.querySelector('.card__title');
     cardTitle.textContent = cardData.name;
@@ -22,6 +21,6 @@ function deleteCard(evt) {
 }
 // @todo: Вывести карточки на страницу
 initialCards.forEach(function(item) {
-    const appearance = createNewCard(item);
-    cardsContainer.append(appearance);
+    const card = createNewCard(item);
+    cardsContainer.append(card);
  });
