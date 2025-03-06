@@ -1,5 +1,3 @@
-export {openModalWindow, closeModalWindow};
-
 function openModalWindow(some) {
     some.classList.add('popup_is-opened');
     document.addEventListener('keydown', pressEsc);
@@ -10,9 +8,11 @@ function openModalWindow(some) {
     document.removeEventListener('keydown', pressEsc);
   };
 
-  const pressEsc = (evt) => {
-    const popupAll = document.querySelector(".popup_is-opened"); 
+  const pressEsc = (evt) => { 
     if (evt.key === "Escape") {
+      const popupAll = document.querySelector(".popup_is-opened");
       closeModalWindow(popupAll);
     }
-  }
+  };
+
+  export {openModalWindow, closeModalWindow};
