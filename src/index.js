@@ -25,38 +25,39 @@ const linkNewCard=document.querySelector('.popup__input_type_url');
 const formElementProfile = document.querySelector('.popup_type_edit .popup__form');
 const formElementAddCard= document.querySelector('.popup_type_new-card .popup__form');
 
-editButton.addEventListener('click', showEditPopup);
 function showEditPopup () {
   openModalWindow(editTitlePopup);
   nameInput.value = profileTitle.textContent;
   descriprionInput.value = profileDescription.textContent;
 };
-addButton.addEventListener('click', showAddPopup);
+editButton.addEventListener('click', showEditPopup);
 function showAddPopup () {
   openModalWindow(newCardPopup);
 };
-function increaseImage (alt, src, capt) {
-  contentImage.src = src;
-  contentImage.alt = alt;
-  captionImagePopup.textContent = capt;
+addButton.addEventListener('click', showAddPopup);
+
+function increaseImage (cardData) {
+  contentImage.src = cardData.link;
+  contentImage.alt = cardData.name;
+  captionImagePopup.textContent = cardData.name;
   openModalWindow(typeImagePopup);
 };
 
 
-function addListener(some) {
-  const closeButton=some.querySelector('.popup__close');
+function addListenerSomePopup(popup) {
+  const closeButton=popup.querySelector('.popup__close');
   closeButton.addEventListener('click', () => {
-      closeModalWindow(some);
+      closeModalWindow(popup);
   });
-  some.addEventListener('mousedown', (evt) => {
+  popup.addEventListener('mousedown', (evt) => {
       if (evt.target.classList.contains('popup')) {
-          closeModalWindow(some);
+          closeModalWindow(popup);
       }
   })
 };
-addListener(editTitlePopup);
-addListener(newCardPopup);
-addListener(typeImagePopup);
+addListenerSomePopup(editTitlePopup);
+addListenerSomePopup(newCardPopup);
+addListenerSomePopup(typeImagePopup);
 
 
 function newFormSubmit(evt) {
@@ -67,23 +68,22 @@ function newFormSubmit(evt) {
 };
 formElementProfile.addEventListener('submit', newFormSubmit); 
 
-
-formElementAddCard.addEventListener('submit', newCardAdd);
 function newCardAdd (evt) {
   evt.preventDefault(); 
   const cardData = {
     name: placeNameNewCard.value,
     link: linkNewCard.value
   };
-  createNewCard(cardData, increaseImage);
+  createNewCard(cardData, increaseImage, deleteCard, likeCard);
   closeModalWindow(newCardPopup);
-  cardsContainer.prepend(createNewCard(cardData, increaseImage));
+  cardsContainer.prepend(createNewCard(cardData, increaseImage, deleteCard, likeCard));
   formElementAddCard.reset();
-}
+};
+formElementAddCard.addEventListener('submit', newCardAdd);
 
 // @todo: Вывести карточки на страницу
 initialCards.forEach(function(item) {
-    const card = createNewCard(item, increaseImage);
+    const card = createNewCard(item, increaseImage, deleteCard, likeCard);
     cardsContainer.append(card);
  });
 
