@@ -1,0 +1,10 @@
+.amount__likes {
+    display: block;
+    margin: 0;
+    padding: 0;
+    align-self: center;
+    color: black;
+    font-size: 13px;
+    line-height: 15.73px;
+    text-align: center;
+}
