@@ -48,8 +48,14 @@ function createNewCard (
 };
 
 function deleteCard(cardId, сardElement) { 
-    DeleteCard(cardId);
-    сardElement.remove();
+    DeleteCard(cardId)
+    .then(() => {
+      сardElement.remove()
+    })
+    .catch((err) => {
+      // Обрабатываем ошибку
+      alert(err);
+    })
   }
 
 
